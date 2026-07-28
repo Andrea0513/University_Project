@@ -1,0 +1,45 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 10 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 1) Sostituisca ogni valore A[i] con il valore 0 se A[i]<B[i],
+*    altrimenti con 1.
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    1,5,3,8,2,0,4,7,9,10
+B       DC.W    4,3,3,9,1,5,4,2,10,8
+DIM     DC.W    10
+
+        ORG     $8100
+MAIN:   
+        MOVE.L  #A,-(SP)
+        MOVE.L  #B,-(SP)
+        MOVE.W  DIM,-(SP)
+        JSR     CHANGE
+        ADDA.L  #10,SP
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+CHANGE: 
+        MOVEA.L 10(SP),A0
+        MOVEA.L 6(SP),A1
+        MOVE.W  4(SP),D0
+        CLR.W   D1              //INDICE
+LOOP:   
+        CMP.W   D0,D1
+        BEQ     FINE_C
+        MOVE.W  (A1)+,D2
+        CMP.W   D2,(A0)
+        BLT     AZZ
+        MOVE.W  #1,(A0)+
+        BRA     INCR
+AZZ:    
+        MOVE.W  #0,(A0)+
+INCR:   
+        ADDQ.W  #1,D1
+        BRA     LOOP
+FINE_C: 
+        RTS
+
+        END

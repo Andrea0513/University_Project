@@ -1,0 +1,48 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 8 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 1) Conti gli elementi di B tali che B[i]< A[i] e B[i]!=-1
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    10,5,8,12,3,20,15,7
+B       DC.W    4,5,-1,2,3,25,-1,1
+DIM     DC.W    8
+COUNT   DS.W    1
+
+        ORG     $8100
+MAIN:   
+        MOVE.L  #A,-(SP)        //12-16
+        MOVE.L  #B,-(SP)        //8-12
+        MOVE.W  DIM,-(SP)       //6-8
+        ADDA.L  #-2,SP          //4-6
+        JSR     CONTA           //0-4
+        MOVE.W  (SP)+,COUNT     //Preleva risultato e incrementa SP di 2
+        ADDA.L  #10,SP          //Ripulisce i 10 byte residui (4+4+2)
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+CONTA:  
+        MOVEA.L 12(SP),A0       //A
+        MOVEA.L 8(SP),A1        //B
+        MOVE.W  6(SP),D0        //DIM
+        CLR.W   D1              //INDICE
+        CLR.W   D2              //COUNT
+LOOP:   
+        CMP.W   D0,D1
+        BEQ     FINE_C
+        MOVE.W  (A1)+,D3
+        CMP.W   (A0)+,D3
+        BGE     INCREM
+        CMP.W   #-1,D3
+        BEQ     INCREM
+        ADDQ.W  #1,D2
+INCREM: 
+        ADDQ.W  #1,D1
+        BRA     LOOP
+FINE_C: 
+        MOVE.W  D2,4(SP)
+        RTS
+
+        END

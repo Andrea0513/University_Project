@@ -1,0 +1,43 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 10 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 2) Crei un vettore C di 10 word tale che C[i]=A[i]+B[9-i] per i=0,…,9
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    1,5,3,8,2,0,4,7,9,10
+B       DC.W    10,9,7,4,0,2,8,3,5,1
+C       DS.W    10
+DIM     DC.W    10
+
+        ORG     $8100
+MAIN:   
+        MOVE.L  #A,-(SP)        //14-18
+        MOVE.L  #B,-(SP)        //10-14
+        MOVE.L  #C,-(SP)        //6-10
+        MOVE.W  DIM,-(SP)       //4-6
+        JSR     CONT            //0-4
+        ADDA.L  #14,SP
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+CONT:   
+        MOVEA.L 14(SP),A0       //A
+        MOVEA.L 10(SP),A1       //B
+        MOVEA.L 6(SP),A2        //C
+        MOVE.W  4(SP),D0        //DIM
+        CLR.W   D1              //INDICE
+        ADDA.L  #20,A1          //VADO ALLA FINE DEL VETTORE (10 word = 20 byte)
+LOOP:   
+        CMP.W   D0,D1           //CONFRONTO INDICE CON DIM
+        BEQ     FUORI_C
+        MOVE.W  -(A1),D3        //DECREMENTO A1 E METTO SLOT SPECULARE DI B IN D3 
+        ADD.W   (A0)+,D3        //SOMMO SU D3 LO SLOT I-ESIMO DI A E AVANZO A0
+        MOVE.W  D3,(A2)+        //METTO LA SOMMA IN C[i] E INCREMENTO A2
+        ADDQ.W  #1,D1           //INCREMENTO INDICE
+        BRA     LOOP
+FUORI_C: 
+        RTS
+
+        END

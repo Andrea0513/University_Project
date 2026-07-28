@@ -1,0 +1,49 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 10 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 1) Conti il numero di volte che si verifica A[i]=0 oppure A[i]=5,
+*    per i=0,...,9
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    1,0,3,5,2,0,4,7,5,10
+B       DC.W    1,2,3,4,5,6,7,8,9,10
+DIM     DC.W    10
+COUNT   DS.W    1
+
+        ORG     $8100
+MAIN:
+        MOVE.L  #A,-(SP)
+        MOVE.W  DIM,-(SP)
+        SUBQ.L  #2,SP
+        JSR     CONTA
+        MOVE.W  (SP)+,COUNT
+        ADDA.L  #6,SP
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+CONTA:
+        MOVEA.L 8(SP),A0
+        MOVE.W  6(SP),D0
+        CLR.W   D1
+        CLR.W   D2
+LOOP:   
+        CMP.W   D0,D2
+        BEQ     FUORI_C
+        MOVE.W  (A0)+,D3
+        CMP.W   #0,D3
+        BEQ     AGG
+        CMP.W   #5,D3
+        BEQ     AGG
+        ADDQ.W  #1,D2
+        BRA     LOOP
+AGG:    
+        ADDQ.W  #1,D1
+        ADDQ.W  #1,D2
+        BRA     LOOP
+FUORI_C: 
+        MOVE.W  D1,4(SP)
+        RTS
+
+        END

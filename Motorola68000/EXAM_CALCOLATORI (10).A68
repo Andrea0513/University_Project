@@ -1,0 +1,46 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 10 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 1) Conti il numero di volte che si verifica A[i]=B[9-i] per i=0,…,4
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    1,5,3,8,2,0,4,7,9,10
+B       DC.W    10,9,7,4,0,2,8,3,5,1
+DIM     DC.W    10
+COUNT   DS.W    1
+
+        ORG     $8100
+MAIN:   
+        MOVE.L  #A,-(SP)        //12-16
+        MOVE.L  #B,-(SP)        //8-12
+        MOVE.W  DIM,-(SP)       //6-8
+        ADDA.L  #-2,SP          //4-6
+        JSR     CONT            //0-4
+        MOVE.W  (SP)+,COUNT     //Preleva risultato (SP sale di 2)
+        ADDA.L  #10,SP          //CORRETTO: Ripulisce esattamente i 10 byte residui (4+4+2)!
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+CONT:   
+        MOVEA.L 12(SP),A0       //A
+        MOVEA.L 8(SP),A1        //B
+        CLR.W   D1              //INDICE
+        CLR.W   D2              //COUNT
+        ADDA.L  #20,A1          //VADO ALLA FINE DEL VETTORE (10 word = 20 byte)
+LOOP:   
+        CMP.W   #4,D1           //CONFRONTO INDICE CHE SIA MINORE O UGUALE A 4
+        BGT     FUORI_C         //APPENA SUPERA 4 ESCE FUORI
+        MOVE.W  -(A1),D3        //DECREMENTO A1 E METTO SLOT SPECULARE DI B IN D3 
+        CMP.W   (A0)+,D3        //INCREMENTO A0 E CONFRONTO CON B
+        BNE     INCREM          //SE SONO DIVERSI INCREMENTO E BASTA INDICE
+        ADDQ.W  #1,D2           //ALTRIMENTI AUMENTO COUNT
+INCREM: 
+        ADDQ.W  #1,D1           //INCREMENTO INDICE
+        BRA     LOOP
+FUORI_C: 
+        MOVE.W  D2,4(SP)        //SALVO VALORE DI COUNT FINITO IL LOOP
+        RTS
+
+        END

@@ -1,0 +1,48 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 8 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 2) Crei un vettore C di 8 word tale che C[i]=B[i] se B[i]>A[i],
+*    altrimenti C[i]=A[i].
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    10,5,8,12,3,20,15,7
+B       DC.W    14,2,8,22,1,18,30,7
+C       DS.W    8
+DIM     DC.W    8
+
+        ORG     $8100
+MAIN:   
+        MOVE.L  #A,-(SP)        //14-18
+        MOVE.L  #B,-(SP)        //10-14
+        MOVE.L  #C,-(SP)        //6-10
+        MOVE.W  DIM,-(SP)       //4-6
+        JSR     CONTA           //0-4
+        ADDA.L  #14,SP
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+CONTA:  
+        MOVEA.L 14(SP),A0       //A
+        MOVEA.L 10(SP),A1       //B
+        MOVEA.L 6(SP),A2        //C
+        MOVE.W  4(SP),D0        //DIM (CORRETTO: Si trova a 4(SP) non a 6(SP)!)
+        CLR.W   D1              //INDICE
+LOOP:   
+        CMP.W   D0,D1           //VERIFICA INDICE MINORE DI DIM
+        BEQ     FINE_C
+        MOVE.W  (A0)+,D2        //METTO SLOT I-ESIMO IN D2
+        CMP.W   (A1)+,D2        //CONFRONTO SLOT I-ESIMO DI B CON SLOT I-ESIMO DI A
+        BLE     AVANTI          //SE A<=B
+        MOVE.W  D2,(A2)+        //METTO A IN C E INCREMENTO
+        BRA     INCREM
+AVANTI: 
+        MOVE.W  -2(A1),(A2)+    //METTO B IN C (leggendo all'indietro di 2 perché (A1)+ era già avanzato!)
+INCREM: 
+        ADDQ.W  #1,D1           //INCREMENTO INDICE
+        BRA     LOOP
+FINE_C: 
+        RTS
+
+        END

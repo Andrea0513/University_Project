@@ -1,0 +1,39 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 10 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 1) Sostituisca ogni valore A[i] con il valore A[i]+B[i]
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    1,2,3,4,5,6,7,8,9,10
+B       DC.W    10,20,30,40,50,60,70,80,90,100
+DIM     DC.W    10              //CORRETTO: DC.W invece di DS.W per inizializzarlo a 10!
+
+        ORG     $8100
+MAIN:   
+        MOVE.L  #A,-(SP)        //10-14
+        MOVE.L  #B,-(SP)        //6-10
+        MOVE.W  DIM,-(SP)       //4-6
+        JSR     SOST            //0-4
+        ADDA.L  #10,SP          //RESETTO SP
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+SOST:   
+        MOVEA.L 10(SP),A0       //A
+        MOVEA.L 6(SP),A1        //B
+        MOVE.W  4(SP),D0        //DIM
+        CLR.W   D1              //INDICE
+LOOP:   
+        CMP.W   D0,D1           //D1-D0
+        BEQ     FINE_S          //SE UGUALI VA ALLA FINE
+        MOVE.W  (A1)+,D2        //METTO B[i] IN D2
+        ADD.W   (A0),D2         //SOMMO A[i] IN D2
+        MOVE.W  D2,(A0)+        //METTO D2 IN A[i] e avanzo A0
+        ADDQ.W  #1,D1           //INCREM INDICE
+        BRA     LOOP
+FINE_S: 
+        RTS
+
+        END

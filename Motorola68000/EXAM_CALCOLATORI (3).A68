@@ -1,0 +1,45 @@
+*-------------------------------------------------------------------------
+* Assegnati due vettori A e B di 10 word ciascuno sviluppare un programma
+* per il processore Motorola 68000 che:
+* 2) Crei un vettore C di 10 word massimo che contenga tutti gli elementi
+*    di A diversi da 0 e 5
+*-------------------------------------------------------------------------
+
+        ORG     $8000
+A       DC.W    1,0,3,5,2,0,4,7,5,10
+B       DC.W    1,2,3,4,5,6,7,8,9,10
+C       DS.W    10
+DIM     DC.W    10
+
+        ORG     $8100
+MAIN:   
+        MOVE.L  #A,-(SP)
+        MOVE.L  #C,-(SP)
+        MOVE.W  DIM,-(SP)
+        JSR     RIEMP
+        ADDA.L  #10,SP
+FINE:   
+        JMP     FINE
+
+        ORG     $8200
+RIEMP:  
+        MOVEA.L 10(SP),A0
+        MOVEA.L 6(SP),A1
+        MOVE.W  4(SP),D0
+        CLR.W   D1
+LOOP:   
+        CMP.W   D0,D1
+        BEQ     FUORI_C
+        MOVE.W  (A0)+,D2
+        CMP.W   #0,D2
+        BEQ     AVANTI
+        CMP.W   #5,D2
+        BEQ     AVANTI
+        MOVE.W  D2,(A1)+
+AVANTI: 
+        ADDQ.W  #1,D1
+        BRA     LOOP
+FUORI_C: 
+        RTS
+
+        END
