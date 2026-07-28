@@ -1,5 +1,46 @@
+/*
+# 📚 University Library Loan Management System (Gestione Prestiti)
 
+Hi everyone! 👋 Welcome to my C++ project called **University Library Loan Management System**! 
 
+I created this software to simulate how a university library or book club manages book loans for students. The coolest part about this project is that it uses **procedural C++ programming**, fixed-size arrays of custom `struct` types, and classic algorithms like **Selection Sort** without relying on complex external libraries!
+
+The whole application is built using fundamental computer science concepts like data structures (`struct`), string manipulation with `char` arrays, pass-by-reference variables, and modular functions!
+
+---
+
+## 💡 What is this project about?
+
+Basically, the software manages a general catalog of book loans (`Prestito`). Every loan record holds important information about both the book and the student:
+* **Book Details**: A unique randomly generated Loan ID (`Cid`), the book title (*Titolo_libro*), the loan date, and the loan type (like monthly or weekly).
+* **Student Details**: The student's first name, last name (*Cognome_studente*), and their unique university identification number (*Matricola*).
+
+Using an interactive terminal menu, the librarian can add new loans, sort the records alphabetically or by ID, search for specific books or students, and remove returned books from the system!
+
+---
+
+## 🛠️ How the Code is Structured
+
+To keep the project clean, modular, and easy to read, I divided the logic into specific functions:
+
+* **`struct Prestito` & `Elenco`**: The core data structure. Instead of using standard C++ vectors, I created a custom `struct` to group all the variables together and defined an array type (`Elenco`) capable of storing up to 100 simultaneous loans!
+* **`inserisci_prestito()`**: Handles data input. It automatically generates a random 4-digit ID using `rand()` and uses `cin.getline()` to safely read multi-word strings like book titles and full names without breaking the input buffer!
+* **`visualizza_prestiti()`**: This is where the sorting happens! I implemented the classic **Selection Sort algorithm** from scratch. It loops through the array, finds the student with the smallest *Matricola* number, and swaps (`temp`) the records to sort the whole list in ascending order!
+* **`trova_prestito()`**: A targeted search function. It uses the standard C library function `strcmp()` to compare the user's search query against both the student's last name and the book title, printing all matching records instantly!
+* **`Eliminazione()`**: Handles book returns. When a book is returned, this function removes the oldest loan (index 0) by shifting all subsequent array elements one position to the left (`e[i] = e[i+1]`). By passing the array counter by reference (`int &riemp`), the program safely decreases the total size without memory leaks!
+
+---
+
+## 🌟 Key Features
+
+1. **Custom Selection Sort Algorithm**: Instead of using pre-made sorting functions, the project demonstrates a direct implementation of Selection Sort, making it a great educational example of time complexity and array manipulation!
+2. **Safe Buffer Management**: One of the biggest challenges in C++ is mixing standard `cin >>` numbers with `cin.getline()` text strings. I implemented careful buffer clearing using `cin.ignore()` to prevent the terminal from skipping user inputs!
+3. **Dual-Criteria Searching**: The search function is really flexible! You don't need two separate menus: you can type either a student's surname or a book title into the exact same prompt, and the program will find the correct match!
+4. **Pass-by-Reference Shifting**: The deletion mechanism modifies the actual size variable directly in the memory address (`&riemp`), ensuring that the main menu and all other subroutines stay perfectly synchronized with the real number of active loans.
+
+Thank you so much for checking out my C++ library project! I hope you like it! 😄
+
+*/
 #include <iostream>
 #include <cstdlib>
 #include <string.h>
