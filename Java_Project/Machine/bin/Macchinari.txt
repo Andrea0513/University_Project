@@ -1,0 +1,5 @@
+4
+Pressa PAlpha 100 10.0  60
+Robot RBeta 60 7.8  true
+Pressa PGamma 80 8.5 55
+Robot RDelta 45 6.5 false

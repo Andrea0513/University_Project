@@ -1,0 +1,3 @@
+Box BX002 contenuto: Vaso(50.0x 1) Costo 100.0 euroSpeciale: fragileassicurazione= 20.0 euro, Costo100.0
+Box BX003 contenuto: Reagente chimico(100.0x 1) Costo 130.0 euroSpeciale: infiammabileassicurazione= 30.0 euro, Costo130.0
+Box BX001 contenuto: Libro(15.0x 2) Costo 30.0 euro

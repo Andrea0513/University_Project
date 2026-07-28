@@ -1,0 +1,9 @@
+AUTOBUS 101 1 Roma Napoli 40
+TRAGHETTO 202 2 Genova Olbia 200 50
+AUTOBUS 303 3 Milano Torino 30
+TRAGHETTO 204 4 Napoli Palermo 10 5
+AUTOBUS 105 5 Firenze Roma 1
+TRAGHETTO 206 6 Ancona Split 100 20
+AUTOBUS 108 7 Bologna Firenze 50
+AUTOBUS 110 8 Torino Genova 0
+TRAGHETTO 209 9 Civitavecchia Barcellona 80 30

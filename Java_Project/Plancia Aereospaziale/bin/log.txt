@@ -1,0 +1,12 @@
+Segnalazione inviata: ' Picco anomalo di radiazioni rilevato nel quadrante est '
+Segnalazione ricevuta daModulo Alfa '' Picco anomalo di radiazioni rilevato nel quadrante est ' 
+INTERVENTO EFFETTUATO
+Segnalazione inviata: ' Perdita intermittente del segnale verso il satellite geostazionario '
+Segnalazione ricevuta daModulo Beta '' Perdita intermittente del segnale verso il satellite geostazionario ' 
+INTERVENTO EFFETTUATO
+Segnalazione inviata: ' Intensità solare superiore alla soglia di sicurezza '
+Segnalazione ricevuta daModulo Alfa '' Intensità solare superiore alla soglia di sicurezza ' 
+INTERVENTO EFFETTUATO
+Segnalazione inviata: ' Errore di sincronizzazione tra moduli comunicanti. '
+Segnalazione ricevuta daModulo Beta '' Errore di sincronizzazione tra moduli comunicanti. ' 
+INTERVENTO EFFETTUATO

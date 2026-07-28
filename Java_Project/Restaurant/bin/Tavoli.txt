@@ -1,0 +1,6 @@
+5
+Esterno 5 2 false true
+Interno 4 12 false true
+Esterno 3 8 false false
+Interno 2 4 false false
+Esterno 1 8 false true

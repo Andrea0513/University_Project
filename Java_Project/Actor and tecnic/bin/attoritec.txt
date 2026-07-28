@@ -1,0 +1,6 @@
+5
+ATTORE C01 Mario Rossi 120 10 true
+ATTORE C02 Giulia Verdi 90 10 false
+TECNICO C03 Luca Bianchi 100 10 luci
+ATTORE C01 Mario Rossi 120 10 true
+TECNICO C04 Anna Neri 80 10 costumi

@@ -1,0 +1,4 @@
+ID: 3 | dimensione: 12.3 |  Costo: 554.115
+ID: 2 | dimensione: 32.0 |  Costo: 384.0
+ID: 4 | dimensione: 33.0 |  Costo: 338.25
+ID: 1 | dimensione: 34.4 |  Costo: 1032.0

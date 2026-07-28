@@ -1,0 +1,15 @@
+ Prenotazione Treno Codice: PL456
+ from: ROMA to: MILANO
+ Departure date: 5/7/2024Departure time: 9:30Passeggero: MariaBianchi 
+ carrozza:11posto: 14D
+ TAGLIA QUI ****************
+ Prenotazione Treno Codice: PH123
+ from: ROMA to: NAPOLI
+ Departure date: 5/7/2024Departure time: 13:20Passeggero: MariaBianchi 
+ carrozza:8posto: 15°
+ TAGLIA QUI ****************
+ Prenotazione Volo Codice: AZ1515
+ from: ROMA to: NAPOLI
+ Departure date: 5/7/2024Departure time: 20:13Passeggero: MarioRossiposto:21C
+ il gate chiude 40 minuti prima della partenza
+ TAGLIA QUI ****************
